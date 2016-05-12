@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,7 +37,7 @@ public class MediaPlayer extends Application {
         
         primaryStage.centerOnScreen();
         primaryStage.setMinWidth(700);
-        playlist[0]="file:///F:/Mind.mp4";
+        playlist[0]="file:///F:/We_Are_Young.mp4";
         
         MenuItem open = new MenuItem("Open");
         Menu File = new Menu("File");
@@ -86,7 +87,7 @@ public class MediaPlayer extends Application {
             }
         });      
         
-        newPlayer = new Player("file:///F:/Mind.mp4");
+        newPlayer = new Player("file:///F:/We_Are_Young.mp4");
         newPlayer.setTop(menu);
         Scene newScene = new Scene(newPlayer,720,535,Color.BLACK);
         newPlayer.view.fitWidthProperty().bind(newScene.widthProperty());
@@ -97,10 +98,20 @@ public class MediaPlayer extends Application {
              @Override
             public void run(){
                 check(newPlayer,primaryStage,menu);
-            }
-        
-        
+            }      
     });
+        newPlayer.view.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                    public void handle(MouseEvent click){
+                        if(click.getClickCount()==2){
+                            if(primaryStage.isFullScreen()){
+                                primaryStage.setFullScreen(false);
+                            }
+                            else{
+                                primaryStage.setFullScreen(true);
+                            }
+               }
+           }
+       });
     }
     public void check(Player player,final Stage primaryStage,final MenuBar menu){
         if(playlist[play_num]==null){
@@ -111,16 +122,27 @@ public class MediaPlayer extends Application {
                 play_num++;
                 newPlayer.setTop(menu);
                 Scene newScene = new Scene(newPlayer,720,535,Color.BLACK);                        
-                newPlayer.view.fitWidthProperty().bind(newScene.widthProperty());                        
+                newPlayer.view.fitWidthProperty().bind(newScene.widthProperty());
                 primaryStage.setScene(newScene);
                 primaryStage.show();
+                newPlayer.view.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                    public void handle(MouseEvent click){
+                        if(click.getClickCount()==2){
+                            if(primaryStage.isFullScreen()){
+                                primaryStage.setFullScreen(false);
+                            }
+                            else{
+                                primaryStage.setFullScreen(true);
+                            }
+               }
+           }
+       });
                 newPlayer.player.setOnEndOfMedia(new Runnable(){
                     public void run(){
                         check(newPlayer,primaryStage,menu);                       
                     }
                 });
-              }      
-       
+              }    
     }
     /**
      * @param args the command line arguments

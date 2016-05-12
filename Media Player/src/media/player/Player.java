@@ -5,8 +5,10 @@
  */
 package media.player;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -38,13 +40,9 @@ public class Player extends BorderPane  {
        setCenter(Media_pane);
        
        
+       
        bar = new Navigation_Bar(player);
        setBottom(bar);
-       player.setOnEndOfMedia(new Runnable(){
-           public void run(){
-    
-       }
-       });
        
        player.play();
         
