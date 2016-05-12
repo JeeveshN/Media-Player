@@ -40,6 +40,11 @@ public class Player extends BorderPane  {
        
        bar = new Navigation_Bar(player);
        setBottom(bar);
+       player.setOnEndOfMedia(new Runnable(){
+           public void run(){
+    
+       }
+       });
        
        player.play();
         

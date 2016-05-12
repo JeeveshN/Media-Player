@@ -64,6 +64,7 @@ public class Navigation_Bar extends HBox{
         
         
         play.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
             public void handle (ActionEvent event){
                 Status status = newPlayer.getStatus();
                 
@@ -100,6 +101,7 @@ public class Navigation_Bar extends HBox{
         
         time.valueProperty().addListener(new InvalidationListener(){
         
+            @Override
             public void invalidated(Observable ov){
                 if(time.isPressed()){
                     newPlayer.seek(newPlayer.getMedia().getDuration().multiply(time.getValue()/100));
@@ -116,11 +118,12 @@ public class Navigation_Bar extends HBox{
             }
         });
         
-        newPlayer.setOnEndOfMedia(new Runnable(){
+        /*newPlayer.setOnEndOfMedia(new Runnable(){
+            @Override
             public void run(){
                 play.setGraphic(new ImageView(imgPlay));               
             }
-        });
+        });*/
     }
     protected void Update(){
         
@@ -130,6 +133,5 @@ public class Navigation_Bar extends HBox{
                     time.setValue(newPlayer.getCurrentTime().toMillis()/newPlayer.getTotalDuration().toMillis()*100);
                 }
             });
-        }
-    
+        }    
 }
